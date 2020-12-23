@@ -1,0 +1,7 @@
+{
+  "name": "Travellover-Custom",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
