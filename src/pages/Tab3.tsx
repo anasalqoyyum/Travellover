@@ -1,23 +1,44 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab3.css';
+import React from "react";
+import {
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonPage,
+  IonRow,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import "./Tab3.css";
 
 const Tab3: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+        <IonToolbar color="primary">
+          <IonTitle>About</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
+      <IonContent class="fullheight xc">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <IonGrid>
+          <IonRow>
+            <IonCol></IonCol>
+            <IonCol>
+              <img src="assets/imgs/logo.png" alt="" />
+            </IonCol>
+            <IonCol></IonCol>
+          </IonRow>
           <IonToolbar>
-            <IonTitle size="large">Tab 3</IonTitle>
+            <IonTitle size="small" class="ion-text-center">
+              This App is Created by Travel Lover's Team
+            </IonTitle>
           </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 3 page" />
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
