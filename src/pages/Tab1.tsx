@@ -29,15 +29,16 @@ interface Post {
 }
 
 const Tab1: React.FunctionComponent = (props) => {
-  const [data, setData] = useState<Post[]>([]);
+  const [posts, setPost] = useState<Post[]>([]);
   const [showLoading, setShowLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
         "https://travellover-ionic.000webhostapp.com/API/post"
       );
-      setData(result.data);
+      setPost(result.data);
       setShowLoading(false);
     };
 
@@ -70,35 +71,44 @@ const Tab1: React.FunctionComponent = (props) => {
           onDidDismiss={() => setShowLoading(false)}
           message={"Loading..."}
         />
-        <IonSearchbar>
-          {/* onIonChange={(e) => setSearchText(e.detail.value!)}
-          showCancelButton="focus" */}
-        </IonSearchbar>
-        {data.map((data) => (
-          <IonCard
-            onClick={async () =>
-              await Browser.open({
-                url:
-                  "https://travellover-ionic.000webhostapp.com/home/detail/" +
-                  data.slug_post,
-              })
+        <IonSearchbar
+          value={search}
+          onIonChange={(e) => setSearch(e.detail.value!)}
+          showCancelButton="focus"
+        ></IonSearchbar>
+        {posts.filter((val) => {
+            if (search === "") {
+              return val
+            } else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+              return val
+            } else {
+              return null
             }
-          >
-            <img
-              src={
-                "https://travellover-ionic.000webhostapp.com/assets/article/img/post/" +
-                data.image
+          }).map((val) => (
+            <IonCard
+              onClick={async () =>
+                await Browser.open({
+                  url:
+                    "https://travellover-ionic.000webhostapp.com/home/detail/" +
+                    val.slug_post,
+                })
               }
-              alt={data.image}
-            />
-            <IonCardHeader>
-              <IonCardTitle>
-                <h3>{data.title}</h3>
-              </IonCardTitle>
-              <small>{"Published at : " + data.date_post}</small>
-            </IonCardHeader>
-          </IonCard>
-        ))}
+            >
+              <img
+                src={
+                  "https://travellover-ionic.000webhostapp.com/assets/article/img/post/" +
+                  val.image
+                }
+                alt={val.image}
+              />
+              <IonCardHeader>
+                <IonCardTitle>
+                  <h3>{val.title}</h3>
+                </IonCardTitle>
+                <small>{"Published at : " + val.date_post}</small>
+              </IonCardHeader>
+            </IonCard>
+          ))}
       </IonContent>
     </IonPage>
   );
